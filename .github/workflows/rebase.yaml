@@ -1,0 +1,27 @@
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    types:
+      - labeled
+      - synchronize
+
+jobs:
+  rebase:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: 체크
+        env:
+          NAME: "@${{ github.actor }}가 리베이스 함"
+          EMAIL: dev+github-bot@spoqa.com
+        run: |
+          echo '동작확인!!!'
+          echo '베이스 [${{ github.base_ref }}]'
+          echo '헤드 [${{ github.head_ref }}]'
