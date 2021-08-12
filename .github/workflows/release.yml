@@ -1,15 +1,22 @@
 # .github/workflows/release.yml
 name: Release
 
-on: [pull_request]
+on:
+  push:
+    branch:
+      - tag-release-test
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Tag
-        uses: K-Phoen/semver-release-action@master
-        with:
-          release_branch: main
+      - name: Create release
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: ${{ github.head_ref }}
+          draft: false
+          prerelease: false
