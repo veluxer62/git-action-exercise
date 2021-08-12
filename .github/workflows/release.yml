@@ -17,3 +17,4 @@ jobs:
           tag_format: "%major%.%minor%.%patch%"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: echo ${{ github.head_ref }}
