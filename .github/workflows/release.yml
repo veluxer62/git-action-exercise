@@ -1,7 +1,9 @@
 # .github/workflows/release.yml
 name: Release
 
-on: [pull_request]
+on:
+  pull_request:
+    types: closed
 
 jobs:
   build:
@@ -10,6 +12,6 @@ jobs:
       - name: Tag
         uses: K-Phoen/semver-release-action@master
         with:
-          release_branch: main
+          release_branch: tag-release-test
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
